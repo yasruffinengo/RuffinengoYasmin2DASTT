@@ -34,7 +34,7 @@ namespace CRUD_AdoNet
         //doble click en el form
         private void Form1_Load(object sender, EventArgs e)
         {
-            Refresh();
+
         }
 
         private void button1_Click(object sender, EventArgs e)

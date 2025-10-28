@@ -10,7 +10,7 @@ namespace CRUD_AdoNet
 {
     public class PersonaDB
     {
-        private string connectionString = "Data source=DESKTOP-HNCN37N; Initial catalog=CrudWindowsForm; Integrated Security=True;";
+        private string connectionString = "Data source=YASMIN-PC\\SQLEXPRESS; Initial catalog=CrudWindowsForm; Integrated Security=True;";
 
         /*
         public bool Ok()
@@ -116,6 +116,8 @@ namespace CRUD_AdoNet
                 }
             }
         }
+
+
         //metodo para agregar a la tabla Persona
         public void Add(string nombre, string apellido, int edad)
         {

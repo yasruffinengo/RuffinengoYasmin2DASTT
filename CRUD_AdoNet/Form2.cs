@@ -14,8 +14,7 @@ namespace CRUD_AdoNet
     {
         private int? Id;
 
-
-        public Form2(int? id=null)
+        public Form2(int? id = null)
         {
             InitializeComponent();
             this.Id = id;
@@ -27,6 +26,10 @@ namespace CRUD_AdoNet
 
         private void LoadData()
         {
+            // this.Id -------> tipo int?
+            // Pero nostros ya validamos en la linea 20
+            // que this.Id sea distinto de null para cargar los datos
+
             PersonaDB opersonaDB = new PersonaDB();
             Persona opersona = opersonaDB.Get((int)Id);
             txtNombre.Text = opersona.Nombre;
@@ -52,6 +55,11 @@ namespace CRUD_AdoNet
             {
                 MessageBox.Show("ocurrio un error al guardar " + ex.Message);
             }
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
