@@ -126,6 +126,7 @@
             dgvSocios.RowHeadersWidth = 51;
             dgvSocios.Size = new Size(594, 460);
             dgvSocios.TabIndex = 9;
+            dgvSocios.CellContentClick += dgvSocios_CellContentClick;
             // 
             // label5
             // 
@@ -144,6 +145,7 @@
             btnEditar.TabIndex = 11;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnEliminar
             // 
@@ -153,6 +155,7 @@
             btnEliminar.TabIndex = 12;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // frmSocios
             // 
