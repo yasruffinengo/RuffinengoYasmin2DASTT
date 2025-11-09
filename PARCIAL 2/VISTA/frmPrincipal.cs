@@ -1,7 +1,10 @@
+using Entidades;
+
 namespace VISTA
 {
     public partial class frmPrincipal : Form
     {
+        private Cliente clienteEnEdicion;
         public frmPrincipal()
         {
             InitializeComponent();

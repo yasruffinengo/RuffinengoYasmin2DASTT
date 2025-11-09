@@ -14,7 +14,14 @@ namespace Entidades
         public string Descripcion { get; set; }
         public decimal Monto { get; set; }
         public TipoMovimiento Tipo {  get; set; }   
+        public SubtipoMovimiento Subtipo { get; set; }
         public enum TipoMovimiento
+        {
+            Debito,
+            Credito
+        }
+
+        public enum SubtipoMovimiento
         {
             //Creditos (ingresos)
             Pago,
@@ -25,7 +32,8 @@ namespace Entidades
             Consumo
         }
 
-        //asocio a cuenta corrinte
+
+        //asocio (fk) cuenta corrinte
         public CuentaCorriente CuentaCorriente { get; set; }
         public int CuentaCorrienteId { get; set; }
     }

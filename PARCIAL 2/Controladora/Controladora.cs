@@ -31,5 +31,65 @@ namespace Controladora
         }
 
 
+        //CLIENTES
+        public List<Cliente> ListarClientes()
+        {
+            try
+            {
+                return repositorio.ListarClientes().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error al listar clientes " + ex.Message);
+            }
+
+        }
+        public string AgregarCliente(Cliente cliente)
+        {
+            try
+            {
+                repositorio.AgregarCliente(cliente);
+                return "Cliente agregado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al agregar cliente " + ex.Message);
+            }
+        }
+        public string ModificarCliente(Cliente cliente)
+        {
+            try
+            {
+
+                repositorio.AgregarCliente(cliente);
+                return "Cliente modificado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar cliente " + ex.Message);
+            }
+        }
+        public string EliminarCliente(int clienteId)
+        {
+            try
+            {
+                // Buscar socio antes de eliminar
+                var cliente = repositorio.ListarClientes().FirstOrDefault(c => c.ClienteId == clienteId);
+
+                if (cliente == null)
+                    return "Error: El cliente no existe o ya fue eliminado.";
+
+                // Si existe, eliminar
+                repositorio.EliminarCliente(cliente);
+                return "Cliente eliminado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception ("Error al eliminar cliente" + ex.Message);
+            }
+        }
+
+
+        //CUENTAS
     }
 }
