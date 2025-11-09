@@ -44,18 +44,19 @@ namespace IntegradorBiblioteca
         }
 
 
-
+        //abre gestion de socios
         private void button1_Click(object sender, EventArgs e)
         {
             frmSocios frm = new frmSocios();
             frm.ShowDialog();
         }
-
+        //abre gestion de libros
         private void button2_Click(object sender, EventArgs e)
         {
             frmLibros frm = new frmLibros();
             frm.ShowDialog();
         }
+
 
         private void btnGuardarPrestamo_Click(object sender, EventArgs e)
         {
@@ -66,13 +67,13 @@ namespace IntegradorBiblioteca
                 return;
             }
 
+            //guardo los id para el metodo AgregarPrestamo()
             int socioId = Convert.ToInt32(cmbSocio.SelectedValue);
             int libroId = Convert.ToInt32(cmbLibro.SelectedValue);
-
             string mensaje = Controladora.Controladora.Instancia.AgregarPrestamo(socioId, libroId);
             MessageBox.Show(mensaje);
 
-            // Recargar listas por si el libro pasó a Prestado
+            //recargar listas por si el libro pasó a Prestado
             CargarLibros();
             Refrescar();
         }

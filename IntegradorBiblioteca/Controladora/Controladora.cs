@@ -131,20 +131,22 @@ namespace Controladora
             }
 
         }
-        private bool ValidarISBN(string isbn)
-        {
-            // Formato clásico ISBN-13 con guiones
-            return Regex.IsMatch(isbn, @"^\d{3}-\d-\d{4}-\d{4}-\d$");
-        }
+
         public string AgregarLibro(Libro libro)
         {
-            string isbn = libro.ISBN;
             try
             {
-                bool isbnValidado = ValidarISBN(isbn);
-                if (!isbnValidado)
+                //valido el titulo
+                var existeTitulo = repositorio.ListarLibro().Any(l => l.Titulo.ToLower() == libro.Titulo.ToLower());    
+                if (existeTitulo)
                 {
-                    return "Error: El ISBN debe tener el formato XXX-X-XXXX-XXXX-X.";
+                    return "error: ya existe un libro con ese titulo";
+                }
+                //valido el isbn
+                var existeIsbn = repositorio.ListarLibro().Any(l=> libro.ISBN.ToLower() == l.ISBN.ToLower());
+                if (existeIsbn)
+                {
+                    return "error: ya existe un libro registrado con ese ISBN";
                 }
 
                 repositorio.AgregarLibro(libro);
