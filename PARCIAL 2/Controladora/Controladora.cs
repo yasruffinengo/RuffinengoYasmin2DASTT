@@ -61,7 +61,7 @@ namespace Controladora
             try
             {
 
-                repositorio.AgregarCliente(cliente);
+                repositorio.ModificarCliente(cliente);
                 return "Cliente modificado correctamente.";
             }
             catch (Exception ex)

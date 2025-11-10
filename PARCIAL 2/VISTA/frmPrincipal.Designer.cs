@@ -37,13 +37,13 @@
             txtApellido = new TextBox();
             txtDni = new TextBox();
             txtTelefono = new TextBox();
-            dataGridView1 = new DataGridView();
+            dgvClientes = new DataGridView();
             label6 = new Label();
             btnAgregar = new Button();
             btnModificar = new Button();
             btnEliminar = new Button();
             btnCC = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -95,7 +95,6 @@
             label5.Size = new Size(85, 22);
             label5.TabIndex = 4;
             label5.Text = "Telefono";
-            //label5.Click += this.label5_Click;
             // 
             // txtNombre
             // 
@@ -103,7 +102,6 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(190, 31);
             txtNombre.TabIndex = 5;
-            //txtNombre.TextChanged += this.txtNombre_TextChanged;
             // 
             // txtApellido
             // 
@@ -126,14 +124,14 @@
             txtTelefono.Size = new Size(190, 31);
             txtTelefono.TabIndex = 8;
             // 
-            // dataGridView1
+            // dgvClientes
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(37, 88);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(723, 510);
-            dataGridView1.TabIndex = 9;
+            dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvClientes.Location = new Point(37, 88);
+            dgvClientes.Name = "dgvClientes";
+            dgvClientes.RowHeadersWidth = 62;
+            dgvClientes.Size = new Size(723, 510);
+            dgvClientes.TabIndex = 9;
             // 
             // label6
             // 
@@ -144,7 +142,6 @@
             label6.Size = new Size(132, 22);
             label6.TabIndex = 10;
             label6.Text = "Nuevo cliente";
-            //label6.Click += this.label6_Click;
             // 
             // btnAgregar
             // 
@@ -154,6 +151,7 @@
             btnAgregar.TabIndex = 11;
             btnAgregar.Text = "Agregar";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnModificar
             // 
@@ -163,7 +161,7 @@
             btnModificar.TabIndex = 12;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
-            //btnModificar.Click += this.button1_Click;
+            btnModificar.Click += btnModificar_Click;
             // 
             // btnEliminar
             // 
@@ -173,6 +171,7 @@
             btnEliminar.TabIndex = 13;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnCC
             // 
@@ -193,7 +192,7 @@
             Controls.Add(btnModificar);
             Controls.Add(btnAgregar);
             Controls.Add(label6);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvClientes);
             Controls.Add(txtTelefono);
             Controls.Add(txtDni);
             Controls.Add(txtApellido);
@@ -206,7 +205,7 @@
             Name = "frmPrincipal";
             Text = "Inicio";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvClientes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -222,7 +221,7 @@
         private TextBox txtApellido;
         private TextBox txtDni;
         private TextBox txtTelefono;
-        private DataGridView dataGridView1;
+        private DataGridView dgvClientes;
         private Label label6;
         private Button btnAgregar;
         private Button btnModificar;
