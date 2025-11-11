@@ -97,12 +97,12 @@ namespace VISTA
                 return;
             }
 
-            // Obtener socio de la fila seleccionada
-            Cliente socioSeleccionado = (Cliente)dgvClientes.CurrentRow.DataBoundItem;
+            // Obtener cliente de la fila seleccionada
+            Cliente clienteSeleccionado = (Cliente)dgvClientes.CurrentRow.DataBoundItem;
 
-            // Confirmación (opcional)
+            // Confirmación 
             DialogResult confirmacion = MessageBox.Show(
-                "¿Seguro que desea eliminar cliente con dni " + socioSeleccionado.Dni + "?",
+                "¿Seguro que desea eliminar cliente con dni " + clienteSeleccionado.Dni + "?",
                 "Confirmar eliminación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -110,11 +110,24 @@ namespace VISTA
             if (confirmacion == DialogResult.No)
                 return;
 
-            string mensaje = Controladora.Controladora.Instancia.EliminarCliente(socioSeleccionado.ClienteId);
+            string mensaje = Controladora.Controladora.Instancia.EliminarCliente(clienteSeleccionado.ClienteId);
 
             MessageBox.Show(mensaje);
 
             Refrescar();
+        }
+
+        private void btnCC_Click(object sender, EventArgs e)
+        {
+            if (dgvClientes.CurrentRow == null)
+            {
+                MessageBox.Show("Debe seleccionar un cliente para gestionar sus cuentas.");
+                return;
+            }
+            //obtengo cliente
+            Cliente clienteSeleccionado = (Cliente)dgvClientes.CurrentRow.DataBoundItem;
+            frmCuentas frm = new frmCuentas(clienteSeleccionado.ClienteId);
+            frm.ShowDialog();
         }
     }
 }

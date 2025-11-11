@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Modelo;
 using System.Text.RegularExpressions;
+using static Entidades.Movimiento;
 
 namespace Controladora
 {
@@ -44,6 +45,18 @@ namespace Controladora
             }
 
         }
+        public Cliente ObtenerClientePorId(int id)
+        {
+            try
+            {
+                return repositorio.ObtenerClientePorId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error al obtener cliente " + ex.Message);
+            }
+        }
+
         public string AgregarCliente(Cliente cliente)
         {
             try
@@ -91,5 +104,87 @@ namespace Controladora
 
 
         //CUENTAS
+        public List<CuentaCorriente> ListarCuentasPorCliente(int id)
+        {
+            try
+            {
+                return repositorio.ObtenerCuentasPorCliente(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error al listar cuentas del cliente " + ex.Message);
+            }
+        }
+        public string AgregarCC(int clienteId)
+        {
+            try
+            {
+                CuentaCorriente cuenta = new CuentaCorriente();
+                cuenta.ClienteId = clienteId;
+                cuenta.Saldo = 0;
+                cuenta.Movimientos = new List<Movimiento>();
+
+                repositorio.AgregarCC(cuenta);
+                return "cuenta corriente creada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                return "error al crear cuenta: " + ex.Message;
+            }
+        }
+
+        //Modificar? cc
+        //Eliminar CC
+
+        //MOVIMIENTOS
+
+        public IReadOnlyCollection<Movimiento> ListarMovimientos(int ccId)
+        {
+            try
+            {
+                return repositorio.ListarMovimientos(ccId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los movimientos: " + ex.Message);
+            }
+        }
+        public string AgregarMovimiento(Movimiento mo)
+        {
+            try
+            {
+                // Validaciones
+                if (mo.Monto <= 0)
+                    return "El monto debe ser mayor que cero.";
+
+                if (string.IsNullOrWhiteSpace(mo.Descripcion))
+                    return "Debe ingresar una descripción.";
+
+                // Obtener la cuenta para actualizar el saldo
+                //tiene que devolver una cuenta
+                var cuenta = repositorio.ObtenerCuentaPorId(mo.CuentaCorrienteId);
+
+                if (cuenta == null)
+                    return "No se encontró la cuenta corriente.";
+
+                // Ajustar saldo según tipo
+                if (mo.Tipo == TipoMovimiento.Credito)
+                    cuenta.Saldo += mo.Monto;
+                else
+                    cuenta.Saldo -= mo.Monto;
+
+                // Guardar Movimiento
+                repositorio.AgregarMovimiento(mo);
+
+                // Guardar actualización de saldo
+                repositorio.ModificarCC(cuenta);
+
+                return "Movimiento registrado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                return "Error al registrar movimiento: " + ex.Message;
+            }
+        }
     }
 }

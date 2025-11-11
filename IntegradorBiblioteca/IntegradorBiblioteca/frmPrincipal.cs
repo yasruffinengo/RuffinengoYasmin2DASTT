@@ -14,6 +14,7 @@ namespace IntegradorBiblioteca
             CargarSocios();
             Refrescar();
         }
+        //metodo para actualizar la grilla
         private void Refrescar()
         {
             dgvPrestamos.DataSource = null;

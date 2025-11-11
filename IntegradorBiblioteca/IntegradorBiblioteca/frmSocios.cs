@@ -43,7 +43,7 @@ namespace IntegradorBiblioteca
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if(socioEnEdicion == null)
+            if (socioEnEdicion == null)
             {
                 Socio socio = new Socio();
                 socio.Dni = txtDni.Text;
@@ -120,7 +120,7 @@ namespace IntegradorBiblioteca
         {
             txtDni.Text = socio.Dni.ToString();
             txtNombre.Text = socio.NombreCompleto.ToString();
-            txtEmail.Text = socio.Email.ToString(); 
+            txtEmail.Text = socio.Email.ToString();
             txtTelefono.Text = socio.Telefono.ToString();
         }
         private void btnEditar_Click(object sender, EventArgs e)
@@ -133,6 +133,11 @@ namespace IntegradorBiblioteca
 
             socioEnEdicion = (Socio)dgvSocios.CurrentRow.DataBoundItem;
             LlenarCampos(socioEnEdicion);
+        }
+
+        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

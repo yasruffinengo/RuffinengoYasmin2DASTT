@@ -64,6 +64,13 @@ namespace Modelo
                 throw new Exception("error al listar clientes: " + ex.Message);
             }
         }
+        //cliente por id
+        public Cliente ObtenerClientePorId(int id)
+        {
+            return context.Clientes.FirstOrDefault(c => c.ClienteId == id);
+        }
+
+
 
         //CuentasCorrientes
         public void AgregarCC(CuentaCorriente cuenta)
@@ -113,6 +120,26 @@ namespace Modelo
                 throw new Exception("error en Repositorio.ListarCC()" + ex.Message);
             }
         }
+        //devuelve cuenta por Id
+        public CuentaCorriente ObtenerCuentaPorId(int id)
+        {
+            try
+            {
+                return context.Cuentas.FirstOrDefault(c => c.CuentaCorrienteId == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en Repositorio.ObtenerCuentaPorId(): " + ex.Message);
+            }
+        }
+
+        //cuentas por cliente
+        public List<CuentaCorriente> ObtenerCuentasPorCliente(int idCliente)
+        {
+            return context.Cuentas.Where(cc => cc.ClienteId == idCliente).ToList();
+        }
+
+
 
         //Movimientos
         public void AgregarMovimiento(Movimiento mo)
@@ -153,16 +180,19 @@ namespace Modelo
                 throw new Exception("error en Repositorio.EliminarMovimiento(): " + ex.Message);
             }
         }
-        public IReadOnlyCollection<Movimiento> ListarMovimientos()
+        
+        public IReadOnlyCollection<Movimiento> ListarMovimientos(int ccId)
         {
             try
             {
-                return context.Movimientos.ToList().AsReadOnly();
+                return context.Movimientos
+                    .Where(m => m.CuentaCorrienteId == ccId).ToList().AsReadOnly();
             }
             catch (Exception ex)
             {
                 throw new Exception("error en Repositorio.ListarMovimientos()" + ex.Message);
             }
         }
+
     }
 }

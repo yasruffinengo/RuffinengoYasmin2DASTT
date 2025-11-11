@@ -47,72 +47,82 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(680, 124);
+            label1.Location = new Point(850, 155);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(35, 20);
+            label1.Size = new Size(43, 25);
             label1.TabIndex = 0;
             label1.Text = "DNI";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(680, 189);
+            label2.Location = new Point(850, 236);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(64, 20);
+            label2.Size = new Size(78, 25);
             label2.TabIndex = 1;
             label2.Text = "Nombre";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(680, 257);
+            label3.Location = new Point(850, 321);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(46, 20);
+            label3.Size = new Size(54, 25);
             label3.TabIndex = 2;
             label3.Text = "Email";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(680, 324);
+            label4.Location = new Point(850, 405);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(67, 20);
+            label4.Size = new Size(79, 25);
             label4.TabIndex = 3;
             label4.Text = "Telefono";
             // 
             // txtDni
             // 
-            txtDni.Location = new Point(809, 117);
+            txtDni.Location = new Point(1011, 146);
+            txtDni.Margin = new Padding(4, 4, 4, 4);
             txtDni.Name = "txtDni";
-            txtDni.Size = new Size(159, 27);
+            txtDni.Size = new Size(198, 31);
             txtDni.TabIndex = 4;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(809, 182);
+            txtNombre.Location = new Point(1011, 228);
+            txtNombre.Margin = new Padding(4, 4, 4, 4);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(159, 27);
+            txtNombre.Size = new Size(198, 31);
             txtNombre.TabIndex = 5;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(809, 250);
+            txtEmail.Location = new Point(1011, 312);
+            txtEmail.Margin = new Padding(4, 4, 4, 4);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(159, 27);
+            txtEmail.Size = new Size(198, 31);
             txtEmail.TabIndex = 6;
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(809, 317);
+            txtTelefono.Location = new Point(1011, 396);
+            txtTelefono.Margin = new Padding(4, 4, 4, 4);
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(159, 27);
+            txtTelefono.Size = new Size(198, 31);
             txtTelefono.TabIndex = 7;
+            txtTelefono.TextChanged += txtTelefono_TextChanged;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(856, 374);
+            btnGuardar.Location = new Point(1070, 468);
+            btnGuardar.Margin = new Padding(4, 4, 4, 4);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(112, 44);
+            btnGuardar.Size = new Size(140, 55);
             btnGuardar.TabIndex = 8;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
@@ -121,27 +131,30 @@
             // dgvSocios
             // 
             dgvSocios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSocios.Location = new Point(60, 109);
+            dgvSocios.Location = new Point(75, 136);
+            dgvSocios.Margin = new Padding(4, 4, 4, 4);
             dgvSocios.Name = "dgvSocios";
             dgvSocios.RowHeadersWidth = 51;
-            dgvSocios.Size = new Size(594, 460);
+            dgvSocios.Size = new Size(742, 575);
             dgvSocios.TabIndex = 9;
             dgvSocios.CellContentClick += dgvSocios_CellContentClick;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(60, 68);
+            label5.Location = new Point(75, 85);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(123, 20);
+            label5.Size = new Size(151, 25);
             label5.TabIndex = 10;
             label5.Text = "LISTA DE SOCIOS";
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(728, 525);
+            btnEditar.Location = new Point(910, 656);
+            btnEditar.Margin = new Padding(4, 4, 4, 4);
             btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(112, 44);
+            btnEditar.Size = new Size(140, 55);
             btnEditar.TabIndex = 11;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
@@ -149,9 +162,10 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(856, 525);
+            btnEliminar.Location = new Point(1070, 656);
+            btnEliminar.Margin = new Padding(4, 4, 4, 4);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(112, 44);
+            btnEliminar.Size = new Size(140, 55);
             btnEliminar.TabIndex = 12;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
@@ -159,9 +173,9 @@
             // 
             // frmSocios
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1017, 642);
+            ClientSize = new Size(1271, 802);
             Controls.Add(btnEliminar);
             Controls.Add(btnEditar);
             Controls.Add(label5);
@@ -175,6 +189,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "frmSocios";
             Text = "frmSocios";
             Load += frmSocios_Load;

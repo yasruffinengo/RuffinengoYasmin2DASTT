@@ -181,6 +181,7 @@
             btnCC.TabIndex = 14;
             btnCC.Text = "Gestionar Cuentas";
             btnCC.UseVisualStyleBackColor = true;
+            btnCC.Click += btnCC_Click;
             // 
             // frmPrincipal
             // 
