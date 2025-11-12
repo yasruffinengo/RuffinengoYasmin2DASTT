@@ -1,4 +1,5 @@
 using Entidades;
+using VISTA.Utilidades;
 
 namespace VISTA
 {
@@ -34,13 +35,8 @@ namespace VISTA
             txtTelefono.Text = cliente.Telefono.ToString();
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-            dgvClientes.ReadOnly = true;
-            dgvClientes.AllowUserToAddRows = false;
-            dgvClientes.AllowUserToDeleteRows = false;
-            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClientes.MultiSelect = false;
-            dgvClientes.RowHeadersVisible = false;
+        { 
+            UtilidadesUI.EsteticaGrilla(dgvClientes);
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -69,6 +65,7 @@ namespace VISTA
                 clienteEnEdicion.Nombre = txtNombre.Text;
                 clienteEnEdicion.Apellido = txtApellido.Text;
                 clienteEnEdicion.Telefono = txtTelefono.Text;
+                
 
                 string mensaje = Controladora.Controladora.Instancia.ModificarCliente(clienteEnEdicion);
                 MessageBox.Show(mensaje, "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -90,8 +87,14 @@ namespace VISTA
             }
 
             clienteEnEdicion = (Cliente)dgvClientes.CurrentRow.DataBoundItem;
+
+
+            Controladora.Controladora.Instancia.ValidarCliente(clienteEnEdicion, true);
+
+
             LlenarCampos(clienteEnEdicion);
             Controladora.Controladora.Instancia.ModificarCliente(clienteEnEdicion);
+            //btnAgregar.Text = "Agregar";
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)

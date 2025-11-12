@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Entidades.Movimiento;
+using VISTA.Utilidades;
 
 namespace VISTA
 {
@@ -38,6 +39,8 @@ namespace VISTA
 
         private void frmMovimientos_Load(object sender, EventArgs e)
         {
+            UtilidadesUI.EsteticaGrilla(dgvMovimientos);
+            UtilidadesUI.ColorearMovimientos(dgvMovimientos);
             lblCC.Text = "Cuenta Corriente: " + Id;
 
             // Cargar Combo Tipo
@@ -48,16 +51,11 @@ namespace VISTA
 
             CargarMovimientos();
 
-
-            //para la grilla
-            dgvMovimientos.ReadOnly = true;
-            dgvMovimientos.AllowUserToAddRows = false;
-            dgvMovimientos.AllowUserToDeleteRows = false;
-            dgvMovimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMovimientos.MultiSelect = false;
-            dgvMovimientos.RowHeadersVisible = false;
         }
+        
 
+        
+        
         //diccionario para diferenciar subtipos por tipo
         private Dictionary<TipoMovimiento, List<SubtipoMovimiento>> _subtiposPorTipo = new Dictionary<TipoMovimiento, List<SubtipoMovimiento>>()
         {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Entidades.Movimiento;
+using VISTA.Utilidades;
 
 namespace VISTA
 {
@@ -24,6 +25,9 @@ namespace VISTA
         {
             lbl1.Text = Id.ToString();
             CargarResumen();
+            UtilidadesUI.EsteticaGrilla(dgvMovimientosResumen);
+            UtilidadesUI.ColorearMovimientos(dgvMovimientosResumen);
+
         }
         private void CargarResumen()
         {

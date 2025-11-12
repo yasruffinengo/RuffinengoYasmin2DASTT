@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VISTA.Utilidades;
 
 namespace VISTA
 {
@@ -56,16 +57,10 @@ namespace VISTA
 
         private void frmCuentas_Load(object sender, EventArgs e)
         {
+            UtilidadesUI.EsteticaGrilla(dgvCuentasCliente);
             CargarCliente();
             //refresca la grilla
-            CargarCuentas();
-
-            dgvCuentasCliente.ReadOnly = true;
-            dgvCuentasCliente.AllowUserToAddRows = false;
-            dgvCuentasCliente.AllowUserToDeleteRows = false;
-            dgvCuentasCliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCuentasCliente.MultiSelect = false;
-            dgvCuentasCliente.RowHeadersVisible = false;
+            CargarCuentas();          
         }
 
         private void btnNuevaCC_Click(object sender, EventArgs e)

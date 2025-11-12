@@ -35,7 +35,7 @@ namespace Controladora
         //CLIENTES
 
         //validar cliente
-        private string ValidarCliente(Cliente cliente, bool esModificacion = false)
+        public string ValidarCliente(Cliente cliente, bool esModificacion = false)
         {
             // Validar campos obligatorios
             if (string.IsNullOrWhiteSpace(cliente.Nombre) ||
@@ -55,22 +55,23 @@ namespace Controladora
             // Teléfono (10 dígitos)
             if (!Regex.IsMatch(cliente.Telefono, @"^\d{10}$"))
                 return "El teléfono debe tener 10 dígitos.";
-
+            
             // Verificar DNI único
             var existe = repositorio.ListarClientes()
                                     .FirstOrDefault(c => c.Dni == cliente.Dni);
 
-            if (!esModificacion)
+            /*
+            //entra aca si quiero modificar el cliente 
+            if (!esModificacion) 
             {
                 if (existe != null)
                     return "Ya existe un cliente registrado con ese DNI.";
             }
-            else
             {
                 if (existe != null && existe.ClienteId != cliente.ClienteId)
                     return "Ese DNI pertenece a otro cliente.";
             }
-
+            */
             return null; //  Todo correcto
         }
 
