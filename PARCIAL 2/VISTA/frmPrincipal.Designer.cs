@@ -175,12 +175,14 @@
             // 
             // btnCC
             // 
+            btnCC.BackColor = Color.HotPink;
+            btnCC.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnCC.Location = new Point(782, 542);
             btnCC.Name = "btnCC";
             btnCC.Size = new Size(271, 54);
             btnCC.TabIndex = 14;
             btnCC.Text = "Gestionar Cuentas";
-            btnCC.UseVisualStyleBackColor = true;
+            btnCC.UseVisualStyleBackColor = false;
             btnCC.Click += btnCC_Click;
             // 
             // frmPrincipal

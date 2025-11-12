@@ -38,6 +38,8 @@
             button3 = new Button();
             button2 = new Button();
             button4 = new Button();
+            button1 = new Button();
+            lblSaldoTotal = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvCuentasCliente).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +49,7 @@
             dgvCuentasCliente.Location = new Point(58, 185);
             dgvCuentasCliente.Name = "dgvCuentasCliente";
             dgvCuentasCliente.RowHeadersWidth = 62;
-            dgvCuentasCliente.Size = new Size(599, 410);
+            dgvCuentasCliente.Size = new Size(599, 350);
             dgvCuentasCliente.TabIndex = 0;
             // 
             // label1
@@ -114,7 +116,7 @@
             // button3
             // 
             button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            button3.Location = new Point(707, 336);
+            button3.Location = new Point(707, 185);
             button3.Name = "button3";
             button3.Size = new Size(175, 67);
             button3.TabIndex = 8;
@@ -124,27 +126,52 @@
             // 
             // button2
             // 
-            button2.Location = new Point(707, 517);
+            button2.Location = new Point(707, 401);
             button2.Name = "button2";
             button2.Size = new Size(175, 59);
             button2.TabIndex = 9;
             button2.Text = "Resumen Cuenta";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(707, 437);
+            button4.Location = new Point(707, 295);
             button4.Name = "button4";
             button4.Size = new Size(175, 62);
             button4.TabIndex = 10;
             button4.Text = "Historial de Movimientos";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(707, 547);
+            button1.Name = "button1";
+            button1.Size = new Size(175, 48);
+            button1.TabIndex = 11;
+            button1.Text = "Eliminar cuenta";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // lblSaldoTotal
+            // 
+            lblSaldoTotal.AutoSize = true;
+            lblSaldoTotal.Font = new Font("Verdana", 10F, FontStyle.Bold);
+            lblSaldoTotal.Location = new Point(390, 562);
+            lblSaldoTotal.Name = "lblSaldoTotal";
+            lblSaldoTotal.Size = new Size(146, 25);
+            lblSaldoTotal.TabIndex = 12;
+            lblSaldoTotal.Text = "Saldo Total:";
+            lblSaldoTotal.Click += lblSaldoTotal_Click;
             // 
             // frmCuentas
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(921, 607);
+            ClientSize = new Size(921, 689);
+            Controls.Add(lblSaldoTotal);
+            Controls.Add(button1);
             Controls.Add(button4);
             Controls.Add(button2);
             Controls.Add(button3);
@@ -175,5 +202,7 @@
         private Button button3;
         private Button button2;
         private Button button4;
+        private Button button1;
+        private Label lblSaldoTotal;
     }
 }

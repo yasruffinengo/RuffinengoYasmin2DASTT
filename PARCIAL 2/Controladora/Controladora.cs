@@ -33,6 +33,47 @@ namespace Controladora
 
 
         //CLIENTES
+
+        //validar cliente
+        private string ValidarCliente(Cliente cliente, bool esModificacion = false)
+        {
+            // Validar campos obligatorios
+            if (string.IsNullOrWhiteSpace(cliente.Nombre) ||
+                string.IsNullOrWhiteSpace(cliente.Apellido) ||
+                string.IsNullOrWhiteSpace(cliente.Dni) ||
+                string.IsNullOrWhiteSpace(cliente.Telefono))
+            {
+                return "Todos los campos son obligatorios.";
+            }
+
+            //dni y telefono con regEx 
+
+            // DNI (8 dígitos)
+            if (!Regex.IsMatch(cliente.Dni, @"^\d{8}$"))
+                return "El DNI debe tener exactamente 8 números.";
+
+            // Teléfono (10 dígitos)
+            if (!Regex.IsMatch(cliente.Telefono, @"^\d{10}$"))
+                return "El teléfono debe tener 10 dígitos.";
+
+            // Verificar DNI único
+            var existe = repositorio.ListarClientes()
+                                    .FirstOrDefault(c => c.Dni == cliente.Dni);
+
+            if (!esModificacion)
+            {
+                if (existe != null)
+                    return "Ya existe un cliente registrado con ese DNI.";
+            }
+            else
+            {
+                if (existe != null && existe.ClienteId != cliente.ClienteId)
+                    return "Ese DNI pertenece a otro cliente.";
+            }
+
+            return null; //  Todo correcto
+        }
+
         public List<Cliente> ListarClientes()
         {
             try
@@ -61,6 +102,10 @@ namespace Controladora
         {
             try
             {
+                //valido con el metodo creado mas arriba
+                string mensaje = ValidarCliente(cliente, esModificacion: false);
+                if (mensaje != null) return mensaje;
+                //si pasa las validaciones agrega el cliente
                 repositorio.AgregarCliente(cliente);
                 return "Cliente agregado correctamente.";
             }
@@ -73,7 +118,10 @@ namespace Controladora
         {
             try
             {
-
+                //valido con el metodo creado mas arriba
+                string mensaje = ValidarCliente(cliente, esModificacion: false);
+                if (mensaje != null) return mensaje;
+                //si pasa las validaciones modifica cliente
                 repositorio.ModificarCliente(cliente);
                 return "Cliente modificado correctamente.";
             }
@@ -102,7 +150,7 @@ namespace Controladora
             }
         }
 
-
+        
         //CUENTAS
         public List<CuentaCorriente> ListarCuentasPorCliente(int id)
         {
@@ -115,6 +163,20 @@ namespace Controladora
                 throw new Exception("error al listar cuentas del cliente " + ex.Message);
             }
         }
+
+        //obtiene cuenta por id
+        public CuentaCorriente ObtenerCuentaPorId(int id)
+        {
+            try
+            {
+                return repositorio.ObtenerCuentaPorId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en Controladora.ObtenerCuentaPorId(): " + ex.Message);
+            }
+        }
+
         public string AgregarCC(int clienteId)
         {
             try
@@ -133,9 +195,27 @@ namespace Controladora
             }
         }
 
-        //Modificar? cc
-        //Eliminar CC
+        //Modificar cc
+        
+        public string EliminarCC(int cuentaId)
+        {
+            try
+            {
+                // Buscar cuenta antes de eliminar
+                var cuenta = repositorio.ListarCC().FirstOrDefault(c => c.CuentaCorrienteId == cuentaId);
 
+                if (cuenta == null)
+                    return "Error: La cuenta no existe o ya fue eliminado.";
+
+                // Si existe, eliminar
+                repositorio.EliminarCC(cuenta);
+                return "Cuenta eliminada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar cuenta" + ex.Message);
+            }
+        }
         //MOVIMIENTOS
 
         public IReadOnlyCollection<Movimiento> ListarMovimientos(int ccId)

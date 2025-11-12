@@ -44,6 +44,9 @@ namespace VISTA
 
             // Si querés, podés cambiar encabezados para que queden lindos:
             dgvCuentasCliente.Columns["CuentaCorrienteId"].HeaderText = "ID Cuenta";
+
+            // Calcular y mostrar el saldo total
+            CalcularSaldoTotal();
         }
 
 
@@ -56,6 +59,13 @@ namespace VISTA
             CargarCliente();
             //refresca la grilla
             CargarCuentas();
+
+            dgvCuentasCliente.ReadOnly = true;
+            dgvCuentasCliente.AllowUserToAddRows = false;
+            dgvCuentasCliente.AllowUserToDeleteRows = false;
+            dgvCuentasCliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCuentasCliente.MultiSelect = false;
+            dgvCuentasCliente.RowHeadersVisible = false;
         }
 
         private void btnNuevaCC_Click(object sender, EventArgs e)
@@ -68,32 +78,39 @@ namespace VISTA
             CargarCuentas();
 
         }
+        private CuentaCorriente ObtenerCuentaGrid()
+        {
+            if (dgvCuentasCliente.CurrentRow == null)
+            {
+                MessageBox.Show("Debe seleccionar una cuenta corriente.", "Atención",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            return (CuentaCorriente)dgvCuentasCliente.CurrentRow.DataBoundItem;
+        }
+
 
         //btn registrar movimiento 
         private void button3_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dgvCuentasCliente.CurrentRow == null)
-                {
-                    MessageBox.Show("Debe seleccionar una cuenta corriente.", "Atención",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
 
-                // Obtengo la cuenta seleccionada
-                var cuentaSeleccionada = (CuentaCorriente)dgvCuentasCliente.CurrentRow.DataBoundItem;
+                var cuenta = ObtenerCuentaGrid();
+                if (cuenta == null) return;
+
 
                 // Mensaje de confirmación
                 var confirmacion = MessageBox.Show(
-                    $"Va a registrar un movimiento para la cuenta ID = {cuentaSeleccionada.CuentaCorrienteId}\n\n¿Desea continuar?",
+                    $"Va a registrar un movimiento para la cuenta ID = {cuenta.CuentaCorrienteId}\n\n¿Desea continuar?",
                     "Confirmar operación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (confirmacion == DialogResult.No)
                     return;
 
                 // Abrimos formulario de movimientos
-                frmMovimientos frm = new frmMovimientos(cuentaSeleccionada.CuentaCorrienteId);
+                frmMovimientos frm = new frmMovimientos(cuenta.CuentaCorrienteId);
                 frm.ShowDialog();
 
                 // Luego refrescamos la grilla (para actualizar saldo si cambió)
@@ -101,8 +118,71 @@ namespace VISTA
             }
             catch (Exception ex)
             {
-                throw new Exception ("Error al seleccionar cuenta " + ex.Message);  
+                throw new Exception("Error al seleccionar cuenta " + ex.Message);
             }
+        }
+
+        //boton eliminar
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //metodo reutilizable
+            var cuenta = ObtenerCuentaGrid();
+            if (cuenta == null) return;
+
+            var confirmar = MessageBox.Show(
+                $"¿Está seguro de eliminar la Cuenta Corriente Nº {cuenta.CuentaCorrienteId}?\n" +
+                "Esta acción no se puede deshacer.",
+                "Confirmar Eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (confirmar != DialogResult.Yes)
+                return;
+
+            // Llamo a controladora
+            string resultado = Controladora.Controladora.Instancia.EliminarCC(cuenta.CuentaCorrienteId);
+
+            MessageBox.Show(resultado, "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Refrescar grilla
+            CargarCuentas();
+
+        }
+
+        private void CalcularSaldoTotal()
+        {
+            decimal saldoTotal = 0;
+
+            // Si la grilla está vacía, mostramos 0
+            if (dgvCuentasCliente.DataSource is List<CuentaCorriente> cuentas && cuentas.Any())
+            {
+                saldoTotal = cuentas.Sum(c => c.Saldo);
+            }
+
+            lblSaldoTotal.Text = $"Saldo Total: {saldoTotal:C}";
+        }
+
+        private void lblSaldoTotal_Click(object sender, EventArgs e)
+        {
+
+        }
+        //boton resumen cuetna
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            var cuenta = ObtenerCuentaGrid();
+            if (cuenta == null) return;
+            frmResumen frm = new frmResumen(cuenta.CuentaCorrienteId);
+            frm.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var cuenta = ObtenerCuentaGrid();
+            if (cuenta == null) return;
+            frmMovimientos frm = new frmMovimientos(cuenta.CuentaCorrienteId);
+            frm.ShowDialog();
         }
     }
 }

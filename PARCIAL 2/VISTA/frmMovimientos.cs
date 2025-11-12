@@ -47,6 +47,15 @@ namespace VISTA
             cbSubtipo.Enabled = false;
 
             CargarMovimientos();
+
+
+            //para la grilla
+            dgvMovimientos.ReadOnly = true;
+            dgvMovimientos.AllowUserToAddRows = false;
+            dgvMovimientos.AllowUserToDeleteRows = false;
+            dgvMovimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMovimientos.MultiSelect = false;
+            dgvMovimientos.RowHeadersVisible = false;
         }
 
         //diccionario para diferenciar subtipos por tipo
@@ -79,6 +88,45 @@ namespace VISTA
 
         }
 
+        //valida saldo suficiente para registrar debito
+        private bool ValidarSaldoSuficiente(decimal monto, TipoMovimiento tipo)
+        {
+            try
+            {
+                // Solo valida si es un débito
+                if (tipo == TipoMovimiento.Debito)
+                {
+                    // Traer la cuenta corriente actual desde la controladora
+
+                    //??
+                    var cuenta = Controladora.Controladora.Instancia.ObtenerCuentaPorId(Id);
+
+                    if (cuenta == null)
+                    {
+                        MessageBox.Show("No se encontró la cuenta corriente.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    // Si el saldo actual es menor al monto que se intenta debitar
+                    if (cuenta.Saldo < monto)
+                    {
+                        MessageBox.Show("Saldo insuficiente para realizar esta operación.",
+                            "Fondos insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+
+                // Si es un crédito o hay suficiente saldo, la validación pasa
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al validar saldo: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
 
         private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
@@ -95,6 +143,7 @@ namespace VISTA
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            // esto podria mandarlo arafue
             if (dtpFecha.Value.Date != DateTime.Today)
             {
                 var respuesta = MessageBox.Show(
@@ -106,7 +155,7 @@ namespace VISTA
                 if (respuesta == DialogResult.No)
                     return; 
             }
-            //asi se guarda el subtipo:
+
             var nuevoMovimiento = new Movimiento
             {
                 Fecha = dtpFecha.Value,
@@ -116,10 +165,37 @@ namespace VISTA
                 Subtipo = (SubtipoMovimiento)cbSubtipo.SelectedItem, 
                 CuentaCorrienteId = Id
             };
+
+            // Validar monto
+            if (!decimal.TryParse(txtMonto.Text, out decimal monto))
+            {
+                MessageBox.Show("Debe ingresar un monto válido.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            nuevoMovimiento.Monto = monto;
+
+            
+            if (!ValidarSaldoSuficiente(monto, nuevoMovimiento.Tipo))
+            {
+                //el otro metodo ya muestra el warning
+                return;
+            }
+            // Llamar al método de la controladora
             string mensaje = Controladora.Controladora.Instancia.AgregarMovimiento(nuevoMovimiento);
-            CargarMovimientos();
-            txtDescripcion.Clear();
-            txtMonto.Clear();
+
+            // Mostrar el resultado
+            MessageBox.Show(mensaje, "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Si fue exitoso, refrescar
+            if (mensaje.Contains("correctamente"))
+            {
+                CargarMovimientos();
+                txtDescripcion.Clear();
+                txtMonto.Clear();
+            }
+
         }
     }
 }

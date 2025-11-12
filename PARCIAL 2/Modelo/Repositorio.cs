@@ -120,6 +120,10 @@ namespace Modelo
                 throw new Exception("error en Repositorio.ListarCC()" + ex.Message);
             }
         }
+
+
+
+
         //devuelve cuenta por Id
         public CuentaCorriente ObtenerCuentaPorId(int id)
         {
@@ -132,6 +136,9 @@ namespace Modelo
                 throw new Exception("Error en Repositorio.ObtenerCuentaPorId(): " + ex.Message);
             }
         }
+
+
+
 
         //cuentas por cliente
         public List<CuentaCorriente> ObtenerCuentasPorCliente(int idCliente)

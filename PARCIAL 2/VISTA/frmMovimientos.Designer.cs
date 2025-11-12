@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -44,17 +43,6 @@
             lblCC = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Verdana", 9F);
-            label1.Location = new Point(31, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(173, 22);
-            label1.TabIndex = 0;
-            label1.Text = "Cuenta Corriente:";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -167,9 +155,11 @@
             // lblCC
             // 
             lblCC.AutoSize = true;
-            lblCC.Location = new Point(228, 91);
+            lblCC.Font = new Font("Verdana", 10F, FontStyle.Bold);
+            lblCC.ForeColor = SystemColors.MenuHighlight;
+            lblCC.Location = new Point(31, 92);
             lblCC.Name = "lblCC";
-            lblCC.Size = new Size(59, 25);
+            lblCC.Size = new Size(80, 25);
             lblCC.TabIndex = 13;
             lblCC.Text = "label7";
             // 
@@ -191,7 +181,6 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
             Name = "frmMovimientos";
             Text = "Movimientos";
             Load += frmMovimientos_Load;
@@ -201,8 +190,6 @@
         }
 
         #endregion
-
-        private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;

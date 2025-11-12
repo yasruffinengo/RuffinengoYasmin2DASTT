@@ -35,7 +35,12 @@ namespace VISTA
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            dgvClientes.ReadOnly = true;
+            dgvClientes.AllowUserToAddRows = false;
+            dgvClientes.AllowUserToDeleteRows = false;
+            dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvClientes.MultiSelect = false;
+            dgvClientes.RowHeadersVisible = false;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -126,6 +131,7 @@ namespace VISTA
             }
             //obtengo cliente
             Cliente clienteSeleccionado = (Cliente)dgvClientes.CurrentRow.DataBoundItem;
+            
             frmCuentas frm = new frmCuentas(clienteSeleccionado.ClienteId);
             frm.ShowDialog();
         }
